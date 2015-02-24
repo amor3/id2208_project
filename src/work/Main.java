@@ -38,6 +38,15 @@ public class Main {
     
     
     
+    public static void main(String... args){
+        WSDLParsing wsdlParsing = new WSDLParsing("file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/FlightwiseAPIProfile.wsdl");
+       
+        //System.out.println( wsdlParsing.getWSName() );
+        
+        //System.out.println(wsdlParsing.getOperations().get(0).getOutput());
+        
+        System.out.println(wsdlParsing.getOperations().get(0).getOutput().getMessage().getPart("Body").getExtensibilityElements().toString());
+    }
     
     
     
@@ -54,11 +63,18 @@ public class Main {
     
     
     
+    
+    
+    
+    
+    /*
     
     public static void main(String... args) {
         Main main = new Main();
 
         main.printClasses(null);
     }
+    
+    */
 
 }
