@@ -93,4 +93,27 @@ public class WSDLParsing {
         }
         return typesArray;
     }
+    
+    
+    
+    public List<String> findOutputTypesByOperationName(String operationName) {
+        ArrayList<String> typesArray = new ArrayList<>();
+        
+        for (PortType pt : getPortTypes()) {
+            for (Operation op : pt.getOperations()) {
+                if(op.getName().equals(operationName)){
+                    for(Part part : op.getOutput().getMessage().getParts()){
+                        if(!typesArray.contains(part.getName())){
+                            typesArray.add(part.getName());
+                        }
+                    }
+                }
+            }
+        }
+        return typesArray;
+    }
+    
+    
+    
+    
 }
