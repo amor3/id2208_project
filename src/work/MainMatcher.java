@@ -31,7 +31,7 @@ public class MainMatcher {
                         int score = EDMatcher.getEditDistance(type1.toLowerCase(), type2.toLowerCase());
                         boolean match = WordnetMatcher.matchWord(type1.toLowerCase(), type2.toLowerCase());
                         
-                        if(score <= 3 || match){
+                        if(score <= 6 || match){
                             System.out.println("_____________________");
                             System.out.println("Operation name 1: " + op1.getName() + ", Operation name 2: " + op2.getName());
                             System.out.println("Type 1: " + type1 + ", Type2: " + type2);
