@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="file:/Users/AMore/NetBeansProjects/id2208_project/src/entity/output.xsl" uri="xml-resources/jaxb/OutputJAXB/output.xsl.xsd"/>
+    <system systemId="file:/Users/johanand/NetBeansProjects/id2208_project/src/schema/output.xsd" uri="xml-resources/jaxb/binding/output.xsd"/>
 </catalog>

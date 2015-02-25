@@ -11,19 +11,19 @@
     <target name="jaxb-code-generation" depends="xjc-typedef-target,-do-init,-init-macrodef-javac">
         <mkdir dir="${build.generated.sources.dir}/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
-        <mkdir dir="build/generated/jaxbCache/OutputJAXB"/>
-        <xjc destdir="build/generated/jaxbCache/OutputJAXB" catalog="catalog.xml">
+        <mkdir dir="build/generated/jaxbCache/binding"/>
+        <xjc package="work" destdir="build/generated/jaxbCache/binding" catalog="catalog.xml">
             <classpath>
                 <pathelement location="${src.dir}"/>
                 <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
             </classpath>
             <arg value="-xmlschema"/>
-            <schema file="xml-resources/jaxb/OutputJAXB/output.xsl.xsd"/>
-            <depends file="xml-resources/jaxb/OutputJAXB/output.xsl.xsd"/>
-            <produces dir="build/generated/jaxbCache/OutputJAXB"/>
+            <schema file="xml-resources/jaxb/binding/output.xsd"/>
+            <depends file="xml-resources/jaxb/binding/output.xsd"/>
+            <produces dir="build/generated/jaxbCache/binding"/>
         </xjc>
         <copy todir="${build.generated.sources.dir}/jaxb">
-            <fileset dir="build/generated/jaxbCache/OutputJAXB"/>
+            <fileset dir="build/generated/jaxbCache/binding"/>
         </copy>
     </target>
 </project>

@@ -3,8 +3,17 @@ package work;
 import com.predic8.wsdl.Message;
 import com.predic8.wsdl.Operation;
 import com.predic8.wsdl.PortType;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
+import javax.xml.namespace.QName;
 import ontology.MyOntManager;
 import org.mindswap.pellet.owlapi.Reasoner;
 import org.semanticweb.owl.model.OWLClass;
@@ -42,7 +51,23 @@ public class Main {
     
     
     
-    
+    public static void exportToFile(WSMatchingType wSMatchingType) {
+        try {
+            File outputFile = new File("output.xml");
+            JAXBContext context = JAXBContext.newInstance(
+                wSMatchingType.getClass().getPackage().getName());
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            JAXBElement<WSMatchingType> topLevelElement = new JAXBElement<>(
+                new QName("ns2:WSMatching"), 
+                WSMatchingType.class, wSMatchingType
+            );
+            marshaller.marshal(topLevelElement, outputFile);
+        } catch (JAXBException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
     
@@ -93,12 +118,12 @@ public class Main {
         */
         
         
-        MainMatcher mm = new MainMatcher();
-        mm.matchThis(
-                "file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/drink2.wsdl", 
-                "file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/wine2.wsdl");
-
-
+        MainMatcher mm = new MainMatcher(
+            "file:///Users/johanand/NetBeansProjects/id2208_project/src/wsdl/drink2.wsdl", 
+            "file:///Users/johanand/NetBeansProjects/id2208_project/src/wsdl/wine2.wsdl"
+        );
+        WSMatchingType wSMatchingType = mm.match();
+        Main.exportToFile(wSMatchingType);
 
 //FlightPlansSoapIn
       

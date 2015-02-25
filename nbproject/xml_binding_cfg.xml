@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='id2208_project' version='1.0'>
-	<schema type='-xmlschema' package='' name='OutputJAXB'>
+	<schema type='-xmlschema' package='work' name='binding'>
 		<xjc-options>
 		</xjc-options>
 		<schema-sources>
-			<schema-source location='xml-resources/jaxb/OutputJAXB/output.xsl.xsd' origLocation='src/entity/output.xsl'/>
+			<schema-source location='xml-resources/jaxb/binding/output.xsd' origLocation='src/schema/output.xsd'/>
 		</schema-sources>
 		<bindings>
 		</bindings>
