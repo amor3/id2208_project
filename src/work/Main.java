@@ -47,7 +47,8 @@ public class Main {
     
     
     public static void main(String... args){
-        WSDLParsing wsdlParsing = new WSDLParsing("file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/FlightwiseAPIProfile.wsdl");
+        /*
+        WSDLParsing wsdlParsing = new WSDLParsing("file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/PaymentsGatewayAPIProfile.wsdl");
         
           
         System.out.println("__________________");
@@ -79,25 +80,23 @@ public class Main {
         }
         
         System.out.println("__________________");
-        for(String type : wsdlParsing.findTypesByMessageName("SearchHttpGetIn")){
+        for(String type : wsdlParsing.findTypesByMessageName("ITransactionService_getReceivedSummary_OutputMessage")){
             System.out.println("Type: " + type);
         }
         
         
         System.out.println("__________________");
-        for(String type : wsdlParsing.findInputTypesByOperationName("FlightsNear")){
-            System.out.println("InputType for " + "FlightsNear: " + type);
+        for(String type : wsdlParsing.findInputTypesByOperationName("searchTransactions")){
+            System.out.println("InputType for " + "SendMoney: " + type);
         }
-                
-        
-        
+             
+        */
         
         
         MainMatcher mm = new MainMatcher();
         mm.matchThis(
-                "file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/FlightwiseAPIProfile.wsdl", 
-                "file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/FlightAwareAPIProfile.wsdl");
-
+                "file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/drink2.wsdl", 
+                "file:///Users/AMore/NetBeansProjects/id2208_project/src/wsdl/wine2.wsdl");
 
 
 

@@ -9,6 +9,8 @@ import com.predic8.wsdl.Service;
 import com.predic8.wsdl.WSDLParser;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -37,9 +39,15 @@ public class WSDLParsing {
         return serviceArray;
     }
 
-    // We assume that its only one port, therefore the zero value on get
     public List<Operation> getOperations() {
-        return getPortTypes().get(0).getOperations();
+        ArrayList<Operation> opList = new ArrayList<>();
+
+        for (PortType pt : getPortTypes()) {
+            for (Operation op : pt.getOperations()) {
+                opList.add(op);
+            }
+        }
+        return opList;
     }
 
     public List<Message> getOutputElements() {
@@ -75,36 +83,62 @@ public class WSDLParsing {
         }
         return typesArray;
     }
-    
-    
+
     public List<String> findInputTypesByOperationName(String operationName) {
         ArrayList<String> typesArray = new ArrayList<>();
-        
+
         for (PortType pt : getPortTypes()) {
             for (Operation op : pt.getOperations()) {
-                if(op.getName().equals(operationName)){
-                    for(Part part : op.getInput().getMessage().getParts()){
-                        if(!typesArray.contains(part.getName())){
-                            typesArray.add(part.getName());
+                if (op.getName().equals(operationName)) {
+                    for (Part part : op.getInput().getMessage().getParts()) {
+
+                        if (part.getElement() != null) {
+
+                            Pattern p = Pattern.compile("name=(['])(?:(?=(\\\\?))\\2.)*?\\1");
+                            Matcher m = p.matcher(part.getElement().getAsString());
+
+                            while (m.find()) {
+                                if (!typesArray.contains(m.group().replace("'", "").replace("name=", ""))
+                                        && !m.group().replace("'", "").replace("name=", "").equals(op.getInput().getMessage().getName())) {
+
+                                    typesArray.add(m.group().replace("'", "").replace("name=", ""));
+                                }
+                            }
+                        } else {
+                            if (!typesArray.contains(part.getName()) && !part.getName().equals(op.getInput().getMessage().getName())) {
+                                typesArray.add(part.getName());
+                            }
                         }
+
                     }
                 }
             }
         }
         return typesArray;
     }
-    
-    
-    
+
     public List<String> findOutputTypesByOperationName(String operationName) {
         ArrayList<String> typesArray = new ArrayList<>();
-        
+
         for (PortType pt : getPortTypes()) {
             for (Operation op : pt.getOperations()) {
-                if(op.getName().equals(operationName)){
-                    for(Part part : op.getOutput().getMessage().getParts()){
-                        if(!typesArray.contains(part.getName())){
-                            typesArray.add(part.getName());
+                if (op.getName().equals(operationName)) {
+                    for (Part part : op.getOutput().getMessage().getParts()) {
+                        if (part.getElement() != null) {
+
+                            Pattern p = Pattern.compile("name=(['])(?:(?=(\\\\?))\\2.)*?\\1");
+                            Matcher m = p.matcher(part.getElement().getAsString());
+
+                            while (m.find()) {
+                                if (!typesArray.contains(m.group().replace("'", "").replace("name=", ""))
+                                        && !m.group().replace("'", "").replace("name=", "").equals(op.getOutput().getMessage().getName())) {
+                                    typesArray.add(m.group().replace("'", "").replace("name=", ""));
+                                }
+                            }
+                        } else {
+                            if (!typesArray.contains(part.getName()) && !part.getName().equals(op.getOutput().getMessage().getName())) {
+                                typesArray.add(part.getName());
+                            }
                         }
                     }
                 }
@@ -112,8 +146,5 @@ public class WSDLParsing {
         }
         return typesArray;
     }
-    
-    
-    
-    
+
 }
